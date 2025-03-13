@@ -1,18 +1,4 @@
 [
-    {
-      "id": 1,
-      "title": "First Blog Post",
-      "content": "This is the first blog post content."
-    },
-    {
-      "id": 2,
-      "title": "Second Blog Post",
-      "content": "This is the second blog post content."
-    },
-    {
-      "id": 3,
-      "title": "Third Blog Post",
-      "content": "This is the third blog post content."
-    }
-  ]
-  
+    {"title": "First Post", "content": "This is my first blog post."},
+    {"title": "Second Post", "content": "This is another blog post."}
+]
