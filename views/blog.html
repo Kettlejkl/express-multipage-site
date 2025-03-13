@@ -18,10 +18,11 @@
 <div id="blog-posts"></div>
 
 <script>
-fetch('/blog')
+fetch('/api/blog')  // Make sure it matches `/api/blog`
   .then(response => response.json())
   .then(posts => {
     const blogContainer = document.getElementById('blog-posts');
+    blogContainer.innerHTML = '';  // Clear previous content
     posts.forEach(post => {
       const postElement = document.createElement('div');
       postElement.innerHTML = `<h2>${post.title}</h2><p>${post.content}</p>`;
