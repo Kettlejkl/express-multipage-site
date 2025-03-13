@@ -1,15 +1,9 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-// Simulating blog posts data (you can later replace this with a database)
-const blogPosts = [
-  { id: 1, title: 'First Blog Post', content: 'This is the first blog post content.' },
-  { id: 2, title: 'Second Blog Post', content: 'This is the second blog post content.' },
-  { id: 3, title: 'Third Blog Post', content: 'This is the third blog post content.' }
-];
 
 // Serve static files from the "public" folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -27,14 +21,23 @@ app.get('/contact', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'contact.html'));
 });
 
-// New /blog route that returns the blog posts in JSON format
+// Serve blog.html for /blog route
 app.get('/blog', (req, res) => {
-  res.json(blogPosts);
+  res.sendFile(path.join(__dirname, 'views', 'blog.html'));
 });
 
-// Start the server
+// API endpoint to fetch blog posts dynamically from posts.json
+app.get('/api/blog', (req, res) => {
+  fs.readFile(path.join(__dirname, 'data', 'posts.json'), 'utf8', (err, data) => {
+    if (err) {
+      res.status(500).json({ error: 'Failed to load blog posts' });
+      return;
+    }
+    res.json(JSON.parse(data));
+  });
+});
+
 // Start the server
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
 });
-
