@@ -1,30 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
-    <link rel="stylesheet" href="/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog</title>
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <h1>Blog Posts</h1>
-    <nav>
-        <a href="/">Home</a> | <a href="/about">About</a> | <a href="/contact">Contact</a>
-    </nav>
-    <div id="blog-container"></div>
+<h1>Blog Page</h1>
+<nav>
+  <a href="/">Home</a> |
+  <a href="/about">About</a> |
+  <a href="/contact">Contact</a> |
+  <a href="/blog">Blog</a>
+</nav>
 
-    <script>
-        fetch('/api/blog')
-            .then(response => response.json())
-            .then(posts => {
-                const container = document.getElementById('blog-container');
-                posts.forEach(post => {
-                    const article = document.createElement('article');
-                    article.innerHTML = `<h2>${post.title}</h2><p>${post.content}</p>`;
-                    container.appendChild(article);
-                });
-            })
-            .catch(error => console.error('Error loading blog posts:', error));
-    </script>
+<div id="blog-posts"></div>
+
+<script>
+fetch('/blog')
+  .then(response => response.json())
+  .then(posts => {
+    const blogContainer = document.getElementById('blog-posts');
+    posts.forEach(post => {
+      const postElement = document.createElement('div');
+      postElement.innerHTML = `<h2>${post.title}</h2><p>${post.content}</p>`;
+      blogContainer.appendChild(postElement);
+    });
+  })
+  .catch(error => console.error('Error loading blog posts:', error));
+</script>
+
 </body>
 </html>
